@@ -24,6 +24,10 @@ export default new Vuex.Store({
     setUser(state, value) {
       state.user = value
     },
+    clearToken(state) {
+      state.user = null,
+      state.token= null
+    }
   },
   actions: {
     login: function ( {commit, dispatch}, value) {
@@ -37,19 +41,36 @@ export default new Vuex.Store({
           dispatch('getUser');
           })
       .catch(error => console.log(error))
-  },
+    },
 
     async getUser({state, commit}) {
-        // console.log(state.token)
-        await axios.get('http://127.0.0.1:8000/api/user', {
-          headers: {
+      // console.log(state.token)
+      await axios.get('http://127.0.0.1:8000/api/user', {
+        headers: {
+        Authorization: "Bearer " + state.token
+        }
+        }).then((response) => {
+            commit('setUser', response.data);
+            // console.log(state.user)
+        }) 
+    },
+    logout: function ( {commit, state}) {
+      axios
+      .post('http://127.0.0.1:8000/api/logout', {}, {
+        headers: {
           Authorization: "Bearer " + state.token
-          }
-      }).then((response) => {
-          commit('setUser', response.data);
-          // console.log(state.user)
-      }) 
-      },
+          }  
+      })
+      .then((res) => {
+          commit('clearToken');
+          // state.token = res.data.data.token;
+          console.log(res.data);
+          })
+      .catch(error => console.log(error))
+
+    }
+
+
   },
   modules: {
   },

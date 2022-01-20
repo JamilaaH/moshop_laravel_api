@@ -42,10 +42,7 @@
 
     <template v-slot:append>
       <div class="pa-2">
-        <v-form action="/logout" method="POST">
-            @csrf
-            <v-btn type="submit">Logout</v-btn>
-        </v-form>
+            <v-btn @click="logout">Logout</v-btn>
       </div>
     </template>
   </v-navigation-drawer>
@@ -53,7 +50,12 @@
 
 <script>
     export default {
-        
+        methods: {
+            logout() {
+                this.$store.dispatch('logout');
+                this.$router.push({name:"Home"});
+            }
+        }
     }
 </script>
 
