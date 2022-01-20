@@ -4,12 +4,13 @@
       <v-row>
           <v-col v-for="produit, index in shop.produits" :key="index" cols=12 sm=4>
             <v-card  >
+              
               <v-img
-                  :src="'./img/'+produit.photo"
+                  :src="url+'storage/'+produit.photo"
                   height="200px"></v-img>
 
                 <v-card-title>
-                  {{produit.nom}}
+                  {{produit.nom}} 
                 </v-card-title>      
                 <v-card-actions>
                   <form :action="'/achat/'+produit.id" method="POST">
@@ -53,7 +54,8 @@
     name: 'Shop',
     data() {
       return {
-        show: false
+        show: false,
+        url:'http://127.0.0.1:8000/',
       }
     },
     computed: {
