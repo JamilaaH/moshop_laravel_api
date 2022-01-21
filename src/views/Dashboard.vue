@@ -1,6 +1,6 @@
 <template>
     <v-container class="mt-10">
-        <h1>dashboard</h1>
+        <h1>Mon Dashboard</h1>
         <v-row class="my-15">
             <v-col cols="12"
                 sm="4">

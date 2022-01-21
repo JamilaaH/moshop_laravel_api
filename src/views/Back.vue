@@ -49,7 +49,7 @@
       </div>
     </template>
   </v-navigation-drawer>
-<v-main>
+    <v-main>
     <router-view/>
     </v-main>
   </v-app>

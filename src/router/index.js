@@ -28,6 +28,13 @@ const routes = [
 
   },
   {
+    path:'/dashboard/monshop',
+    name:'MonShop', 
+    component: () => import(/* webpackChunkName: "MonShop" */ '../views/MonShop.vue'),
+    meta: { requiresAuth: true }
+
+  },
+  {
     path:'/login',
     name:'Login', 
     component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')

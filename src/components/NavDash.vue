@@ -10,7 +10,7 @@
           <v-list-item-title >Dashboard</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item href="/dashboard/monshop">
+      <v-list-item :to='{name:"MonShop"}'>
         <v-list-item-icon>
           <v-icon class="mdi mdi-account-box" ></v-icon>
         </v-list-item-icon>

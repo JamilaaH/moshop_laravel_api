@@ -10,6 +10,7 @@ export default new Vuex.Store({
     shop:null,
     token:null,
     user:null,
+    monShop:null,
   },
   mutations: {
     getShop(state) {
@@ -27,9 +28,13 @@ export default new Vuex.Store({
     clearToken(state) {
       state.user = null,
       state.token= null
+    }, 
+    setMyShop(state, value) {
+      state.monShop = value
     }
   },
   actions: {
+    //login
     login: function ( {commit, dispatch}, value) {
       console.log(value);
       axios
@@ -42,7 +47,7 @@ export default new Vuex.Store({
           })
       .catch(error => console.log(error))
     },
-
+    // récupérer les infos de l'utilisateur connecté
     async getUser({state, commit}) {
       // console.log(state.token)
       await axios.get('http://127.0.0.1:8000/api/user', {
@@ -54,6 +59,8 @@ export default new Vuex.Store({
             // console.log(state.user)
         }) 
     },
+    
+    //déconnexion
     logout: function ( {commit, state}) {
       axios
       .post('http://127.0.0.1:8000/api/logout', {}, {
@@ -67,8 +74,39 @@ export default new Vuex.Store({
           console.log(res.data);
           })
       .catch(error => console.log(error))
+    },
 
-    }
+    // récupérer la boutique de la personne connectée
+    monShop: function ( {commit, state}) {
+      axios
+      .get('http://127.0.0.1:8000/api/monshop',  {
+        headers: {
+          Authorization: "Bearer " + state.token
+          }  
+      })
+      .then((res) => {
+          commit('setMyShop', res.data.data);
+          // state.token = res.data.data.token;
+          console.log(res.data);
+          })
+      .catch(error => console.log(error))
+    },
+  
+    //ajouter un produit 
+    addProduct({dispatch,state}, value) {
+      // console.log(value);
+      axios.post('http://127.0.0.1:8000/api/storeproduit', value, {
+        headers: {
+        Authorization: "Bearer " + state.token
+        }
+    })
+      .then((response) => {
+        console.log(response)
+        dispatch('getUser')
+      })
+      .catch(error => console.log(error))
+  },   
+
 
 
   },

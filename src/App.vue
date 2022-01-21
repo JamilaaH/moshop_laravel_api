@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Nav v-if="$router.history.current['path'] == '/'"/>
-    <NavDash v-if="$router.history.current['path'] == '/dashboard'"/>
+    <NavDash v-if="$router.history.current['path'].includes('dashboard')"/>
     <v-main>
       <router-view/>
     </v-main>
